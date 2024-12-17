@@ -80,6 +80,16 @@ Object.defineProperty(window, 'matchMedia', {
   })),
 });
 
+export const navigateFn = vi.fn();
+
+vi.mock('react-router-dom', async () => {
+  const actual = await vi.importActual('react-router-dom');
+  return {
+    ...actual,
+    useNavigate: () => navigateFn, // useNavigate가 navigateFn 반환
+  };
+});
+
 afterEach(() => {
   vi.clearAllMocks();
 });
